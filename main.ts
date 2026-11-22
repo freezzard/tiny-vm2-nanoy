@@ -8,7 +8,7 @@ for(;;){
 if(ct>=1e6)return fin(10);
 if(pp<0||pp>=n)return fin(9);
 const op=pg[pp],nx=pp+1+(op===1?1:op===2?4:op>47&&op<52?2:0);
-if(!(op<8||op>15&&op<35||op>47&&op<53||op===64||op===65||op>79&&op<84))return fin(5);
+if(!(op<8||op>15&&op<35&&op!==31||op>47&&op<53||op===64||op===65||op>79&&op<84))return fin(5);
 if(nx>n)return fin(9);
 ct++;
 const bo=op>15&&op<35&&op!==23&&op!==27;
@@ -32,11 +32,11 @@ case 48:case 49:case 50:if(op===48||(op===49)===(vs[--vp]===0))pp=nx+pg.readInt1
 case 51:if(kp>=64)return fin(7);cs[kp++]=nx;pp=pg.readUInt16LE(nx-2);break;
 case 52:if(kp===0)return fin(8);pp=cs[--kp];break;
 case 64:case 65:{const ad=vs[vp-1];if(ad<0||ad>255)return fin(6);if(op===64)vs[vp-1]=mm[ad];if(op===65){mm[ad]=vs[vp-2];vp-=2;}break;}
-case 80:{const tx=String(vs[vp-1]);if(wp+tx.length>65536)return fin(11);for(let k=0;k<tx.length;k++)ob[wp++]=tx.charCodeAt(k);vp--;break;}
+case 80:{const tx=String(vs[--vp]);if(wp+tx.length>65536)return fin(11);for(const c of tx)ob[wp++]=c.charCodeAt(0);break;}
 case 81:if(wp>=65536)return fin(11);ob[wp++]=vs[--vp]&255;break;
 case 82:vs[vp++]=rp<ib.length?ib[rp++]:-1;break;
 case 83:return fin(vs[--vp]&255);
-default:{const b=vs[vp-1],a=vs[vp-2];if(b===0&&op>18&&op<23)return fin(4);const r=[a+b|0,a-b|0,Math.imul(a,b),a===-2147483648&&b===-1?a:(a/b)|0,b===-1?0:(a%b)|0,Math.floor((a>>>0)/(b>>>0))|0,(a>>>0)%(b>>>0)|0,,a&b,a|b,a^b,,a<<(b&31),a>>(b&31),(a>>>(b&31))|0,,+(a===b),+(a<b),+((a>>>0)<(b>>>0))][op-16];vp--;vs[vp-1]=r;}
+default:{const b=vs[vp-1],a=vs[vp-2];if(b===0&&op>18&&op<23)return fin(4);vs[vp-2]=[a+b|0,a-b|0,Math.imul(a,b),a===-2147483648&&b===-1?a:(a/b)|0,b===-1?0:(a%b)|0,Math.floor((a>>>0)/(b>>>0))|0,(a>>>0)%(b>>>0)|0,,a&b,a|b,a^b,,a<<(b&31),a>>(b&31),(a>>>(b&31))|0,,+(a===b),+(a<b),+((a>>>0)<(b>>>0))][op-16];vp--;}
 }
 }
 }
